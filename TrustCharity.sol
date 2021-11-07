@@ -5,14 +5,14 @@ contract CharityNEW {
     string public name; //define a token name
     string public symbol; //define a token symbol
     address payable public  tokenOwner;  //tokenOwner, the address can receive ether
-    uint256 constant tokenPrice = 10; // token price, unit wei
+    uint256 constant tokenPrice = 100; // token price, unit wei
     uint256 private _totalSupply; //the total supply of the tokenOwner
     uint256 constant amountOfItem_threshold = 5; // The amount of items that need to be scanned (bags have 5 items)
     
-    // different roles
+    // define different roles
     enum Role {
     Donor,
-    Charity, 
+    Charity,
     Retailer
     }
     // define a struct "Project"
@@ -43,7 +43,7 @@ contract CharityNEW {
         name = _name;
         symbol = _symbol;
         _totalSupply = _initialSupply;
-        tokenOwner = payable(msg.sender); //the address deploying the smart contract
+        tokenOwner = payable(msg.sender); // the address deploying the smart contract
         balances[msg.sender] = _initialSupply; // the balances of the tokenOwner is intialized as the totalsupply
     }
     
@@ -123,7 +123,7 @@ contract CharityNEW {
         actor.isDefined = true;
         actors[_addr] = actor;
     }
-    // check if 5 items have been scanned, and therefore if the right amount of items are received
+    // check if 5 items have been scanned, and therefore if the right amount of items are received (bool)
     function checkScannedItems(uint256 _id) private {
         Donation storage _donation = donations[_id];
         if (_donation.itemAmount == amountOfItem_threshold)
@@ -138,14 +138,13 @@ contract CharityNEW {
         uint256 project_id, 
         uint256 donation_id,
         string memory url,
-        bool RightAmountOfItems
+        bool enoughItems
     )
     {
         project_id = projects[_id].ID;
         donation_id = donations[_id].ID;
         url = donations[_id].url;
-        RightAmountOfItems = donations[_id].rightAmountOfItems;
-        
+        enoughItems = donations[_id].rightAmountOfItems;
     }
     
     // retrieve an actor's information
