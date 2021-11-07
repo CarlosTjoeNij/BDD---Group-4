@@ -18,6 +18,7 @@ contract CharityNEW {
     // define a struct "Project"
     struct Project {
         uint256 ID; // the project identifier
+        string Type; // the type of project; can be bags of food or single item
     }
     // define a struct "Donation"
     struct Donation {
@@ -135,13 +136,15 @@ contract CharityNEW {
     // retrieve event/donation information
     function getEventInfo(uint256 _id) public view returns
     (
-        uint256 project_id, 
+        uint256 project_id,
+        string memory project_type,
         uint256 donation_id,
         string memory url,
         bool enoughItems
     )
     {
         project_id = projects[_id].ID;
+        project_type = projects[_id].Type;
         donation_id = donations[_id].ID;
         url = donations[_id].url;
         enoughItems = donations[_id].rightAmountOfItems;
